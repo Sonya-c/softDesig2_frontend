@@ -6,7 +6,7 @@ const Layout = () => {
             <Outlet />
         </main>
         <footer>
-            <Link to="/">Clients</Link>
+            <Link to="/">Users</Link>
             <Link to="/logs">Logs</Link>
         </footer>
     </>

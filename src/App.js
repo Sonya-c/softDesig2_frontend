@@ -2,7 +2,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Layout from './utils/Layout';
 
-import ClientPage from './pages/ClientPage';
+import UserPage from './pages/UserPage';
 import LogsPage from './pages/LogsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -11,7 +11,7 @@ function App() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<Layout/>}>
-          <Route index element={<ClientPage />} />
+          <Route index element={<UserPage />} />
           <Route path="logs" element={<LogsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
