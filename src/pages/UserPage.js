@@ -1,8 +1,16 @@
 import { useEffect, useState } from "react";
-import { Container, Table, Form, Row, Col, Button, Card } from "react-bootstrap";
+import { Container, Form, Row, Col, Button, Card, Modal } from "react-bootstrap";
+import TableComponent from "../components/TableComponent";
 
 function UserPage() {
+  const columns = ["Identificación", "Tipo", "Nombres", "Apellidos", "Correo", "Teléfono"];
+  const userProperties = ["id", "type", "names", "lastnames", "email", "phone"];
+  
   const [users, setUsers] = useState([]);
+  const [show, setShow] = useState(false);
+  
+  const handleClose = () => setShow(false);
+  const handleShow = () => setShow(true);
 
   useEffect(() => {
     setUsers([
@@ -57,37 +65,53 @@ function UserPage() {
         <Card.Body>
           <Card.Title>Todos los usuarios</Card.Title>
           <div style={{
-            overflow: "scroll",
+            overflow: "auto",
             maxHeight: "300px"
           }}>
-            <Table striped hover borderless align="center" >
-              <thead>
-                <tr>
-                  <th>Identificación</th>
-                  <th>Nombre</th>
-                  <th>Nombre(s)</th>
-                  <th>Apellido(s)</th>
-                  <th>Correo</th>
-                  <th>Telefono</th>
-                </tr>
-              </thead>
-              <tbody>
-                {users.map((user) => {
-                  return <tr key={user.id} onClick={() => alert(user.names)}>
-                    <td><div>{user.id}</div></td>
-                    <td><div>{user.type}</div></td>
-                    <td><div>{user.names}</div></td>
-                    <td><div>{user.lastnames}</div></td>
-                    <td><div>{user.email}</div></td>
-                    <td><div>{user.phone}</div></td>
-                  </tr>
-                })}
-              </tbody>
-            </Table>
-            <p>Mostrando {users.length} usuarios</p>
+            <TableComponent
+              columns={columns}
+              data={users}
+              dataColumns={userProperties}
+              actionRow={handleShow}
+            />
           </div>
+          <p>Mostrando {users.length} usuarios</p>
         </Card.Body>
       </Card>
+      <Modal show={show} onHide={handleClose} centered >
+        <Modal.Header>
+          <Modal.Title>Modal heading</Modal.Title>
+        </Modal.Header>
+        <Modal.Body>
+          <Form>
+              <Col>
+                Imagen
+              </Col>
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column >
+                  Id
+                </Form.Label>
+                <Col sm="8">
+                  <Form.Control type="text" />
+                </Col>
+              </Form.Group>
+
+              <Form.Group as={Row} className="mb-3" controlId="">
+                <Form.Label column>
+                  Tipo de Documento
+                </Form.Label>
+                <Col sm="8">
+                  <Form.Control type="text" />
+                </Col>
+              </Form.Group>              
+          </Form>
+        </Modal.Body>
+        <Modal.Footer>
+          <Button variant="secondary" onClick={handleClose}>
+            Cancel
+          </Button>
+        </Modal.Footer>
+      </Modal>
     </Container>
   );
 }
