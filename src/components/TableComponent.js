@@ -4,7 +4,7 @@ export default function TableComponent({ data, columns, dataColumns, actionRow }
     dataColumns = dataColumns || columns;
     
     return (<div>
-        <Table>
+        <Table striped hover borderless >
             <thead>
                 <tr>
                     {columns.map((column) => {
@@ -14,7 +14,7 @@ export default function TableComponent({ data, columns, dataColumns, actionRow }
                 </thead>
             <tbody>
             {data.map((element) => {
-                return <tr key={element.id} onClick={actionRow}>
+                return <tr key={element.id} onClick={() => actionRow(element)}>
                     {dataColumns.map((column) => {
                         console.log(element, column);
                         return <td> {element[column]} </td>

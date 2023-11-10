@@ -7,10 +7,25 @@ function UserPage() {
   const userProperties = ["id", "type", "names", "lastnames", "email", "phone"];
   
   const [users, setUsers] = useState([]);
-  const [show, setShow] = useState(false);
+  const [user, setUser] = useState(null);
+  const [showModal, setShowModal] = useState(false);
   
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+  const handleClose = (userData) => {
+    console.log(userData);
+    setUser(userData);
+    setShowModal(false);
+  }
+  
+  const handleShowModal = (userData) => {
+    console.log(userData);
+    setUser(userData);
+    setShowModal(true);
+  }
+
+  const handleSearch = (event) => {
+    event.preventDefault();
+    alert("Buscar");
+  }
 
   useEffect(() => {
     setUsers([
@@ -21,13 +36,9 @@ function UserPage() {
     ]);
   }, []);
 
-  const handleSearch = (e) => {
-    e.preventDefault();
-    alert("Buscar");
-  }
-
   return (
     <Container data-testid="user-page" gap={10}>
+      
       <Card className="mt-4 mb-2 shadow-sm">
         <Card.Body>
           <Card.Title>Buscar usuario</Card.Title>
@@ -35,32 +46,32 @@ function UserPage() {
             <Row>
               <Col sm={true} className="mt-2">
                 <label for="form-id">Identificación</label>
-                <Form.Control as="select" id="form-id">
+                <Form.Control as="select" id="search-form-id">
                   <option></option>
                   {users.map((user) => {
                     return <option value={user.id}>{user.id}</option>
-                  })
-                  }
+                  })}
                 </Form.Control>
               </Col>
               <Col sm={true} className="mt-2">
                 <label for="form-id-type">Tipo</label>
-                <Form.Control as="select" id="form-id-type">
+                <Form.Control as="select" id="search-form-id">
                   <option></option>
                   <option>Cedula</option>
                   <option>TI</option>
                 </Form.Control>
               </Col>
-
             </Row>
+
             <Row className="mt-2">
               <Col>
-                <Button type="submit">Buscar</Button>
+                <Button type="submit" id="search-form-submit">Buscar</Button>
               </Col>
             </Row>
           </Form>
         </Card.Body>
       </Card>
+      
       <Card className="mt-3 mb-4 shadow-sm">
         <Card.Body>
           <Card.Title>Todos los usuarios</Card.Title>
@@ -72,13 +83,14 @@ function UserPage() {
               columns={columns}
               data={users}
               dataColumns={userProperties}
-              actionRow={handleShow}
+              actionRow={handleShowModal}
             />
           </div>
           <p>Mostrando {users.length} usuarios</p>
         </Card.Body>
       </Card>
-      <Modal show={show} onHide={handleClose} centered >
+
+      <Modal show={showModal} onHide={handleClose} centered >
         <Modal.Header>
           <Modal.Title>Modal heading</Modal.Title>
         </Modal.Header>
