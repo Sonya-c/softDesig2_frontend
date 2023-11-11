@@ -1,22 +1,27 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
+
 import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
 import TableComponent from "../components/TableComponent";
+
 import UserForm from "../components/UserForm";
 import { SearchForm } from "../components/SearchForm";
 
-function UserPage() {
+function UsersPage() {
+  const navigate = useNavigate();
+
   const columns = ["Identificación", "Tipo", "Nombres", "Apellidos", "Correo", "Teléfono"];
   const userProperties = ["id", "type", "names", "lastnames", "email", "phone"];
 
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
 
-  const handleClose = (userData) => {
-    setShowModal(false);
-  }
+  const handleClose = () => setShowModal(false);
 
-  const handleShowModal = (userData) => {
-    setShowModal(true);
+  const handleShowModal = () => setShowModal(true);
+
+  const handleActionRow = (userData) => {
+    navigate(`/profile?id=${userData.id}&typeId=${userData.type}`);
   }
 
   useEffect(() => {
@@ -54,7 +59,7 @@ function UserPage() {
               columns={columns}
               data={users}
               dataColumns={userProperties}
-              actionRow={() => { }}
+              actionRow={handleActionRow}
             />
           </div>
           <p>Mostrando {users.length} usuarios</p>
@@ -76,4 +81,4 @@ function UserPage() {
   );
 }
 
-export default UserPage;
+export default UsersPage;

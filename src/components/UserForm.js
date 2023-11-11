@@ -1,6 +1,6 @@
 import { Form, Row, Col, Image, Button } from "react-bootstrap";
 
-export default function UserForm({ create = false, update = false, delete: delete_ = false }) {
+export default function UserForm({ create = false, update = false, delete: delete_ = false, user }) {
 
   return <Form>
     <Row className="d-flex justify-content-sm-center mb-5 mt-5">
@@ -9,27 +9,16 @@ export default function UserForm({ create = false, update = false, delete: delet
 
     <Row>
       <Col>
-        <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Nombres</Form.Label>
-          <Col>
-            <Form.Control type="text" />
-          </Col>
-        </Form.Group>
-        <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Apellidos</Form.Label>
-          <Col>
-            <Form.Control type="text" />
-          </Col>
-        </Form.Group>
+
         <Form.Group as={Col} className="mb-3" controlId="">
           <Form.Label column>Identificación</Form.Label>
           <Col>
-            <Form.Control type="text" />
+            <Form.Control disabled={!create} type="text" />
           </Col>
         </Form.Group>
 
         <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Tipo Identificación</Form.Label>
+          <Form.Label disabled={!create} column>Tipo Identificación</Form.Label>
           <Col>
             <Form.Control as="select">
               <option></option>
@@ -38,25 +27,9 @@ export default function UserForm({ create = false, update = false, delete: delet
             </Form.Control>
           </Col>
         </Form.Group>
-      </Col>
-
-      <Col>
-        <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Correo</Form.Label>
-          <Col>
-            <Form.Control type="text" />
-          </Col>
-        </Form.Group>
 
         <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Ceular</Form.Label>
-          <Col>
-            <Form.Control type="text" />
-          </Col>
-        </Form.Group>
-
-        <Form.Group as={Col} className="mb-3" controlId="">
-          <Form.Label column>Fecha Nacimiento</Form.Label>
+          <Form.Label disabled={!create} column>Fecha Nacimiento</Form.Label>
           <Col>
             <Form.Control type="date" />
           </Col>
@@ -74,6 +47,37 @@ export default function UserForm({ create = false, update = false, delete: delet
             </Form.Control>
           </Col>
         </Form.Group>
+      </Col>
+
+      <Col>
+        <Form.Group as={Col} className="mb-3" controlId="">
+          <Form.Label column>Nombres</Form.Label>
+          <Col>
+            <Form.Control type="text" />
+          </Col>
+        </Form.Group>
+        <Form.Group as={Col} className="mb-3" controlId="">
+          <Form.Label column>Apellidos</Form.Label>
+          <Col>
+            <Form.Control type="text" />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Col} className="mb-3" controlId="">
+          <Form.Label column>Correo</Form.Label>
+          <Col>
+            <Form.Control type="text" />
+          </Col>
+        </Form.Group>
+
+        <Form.Group as={Col} className="mb-3" controlId="">
+          <Form.Label column>Ceular</Form.Label>
+          <Col>
+            <Form.Control type="text" />
+          </Col>
+        </Form.Group>
+
+
       </Col>
     </Row>
 

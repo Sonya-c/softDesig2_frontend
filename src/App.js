@@ -4,7 +4,8 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 import Layout from './utils/Layout';
 
-import UserPage from './pages/UserPage';
+import UsersPage from './pages/UsersPage';
+import ProfilePage from './pages/ProfilePage';
 import LogsPage from './pages/LogsPage';
 import NotFoundPage from './pages/NotFoundPage';
 
@@ -12,9 +13,10 @@ function App() {
   return (
     <BrowserRouter>
       <Routes>
-        <Route path="/" element={<Layout/>}>
-          <Route index element={<UserPage />} />
-          <Route path="logs" element={<LogsPage />} />
+        <Route path="/" element={<Layout />}>
+          <Route index element={<UsersPage />} />
+          <Route path="/profile" element={<ProfilePage />} />
+          <Route path="/logs" element={<LogsPage />} />
           <Route path="*" element={<NotFoundPage />} />
         </Route>
       </Routes>
