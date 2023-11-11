@@ -1,5 +1,5 @@
 import { Container, Nav, Navbar } from "react-bootstrap";
-import { Outlet, useLocation } from "react-router-dom";
+import { Outlet, useLocation, Link } from "react-router-dom";
 
 const Layout = () => {
     const location = useLocation()
@@ -13,8 +13,8 @@ const Layout = () => {
                 }
                 </Navbar.Brand>
                 <Nav className="me-auto">
-                    <Nav.Link href="/">Users</Nav.Link>
-                    <Nav.Link href="/logs">Logs</Nav.Link>
+                    <Nav.Link as={Link} to="/" data-testid="link-to-user-page">Users</Nav.Link>
+                    <Nav.Link as={Link} to="/logs" data-testid="link-to-logs-page">Logs</Nav.Link>
                 </Nav>
             </Container>
         </Navbar>
