@@ -5,7 +5,7 @@ import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
 import TableComponent from "../components/TableComponent";
 
 import UserForm from "../components/UserForm";
-import { SearchForm } from "../components/SearchForm";
+import { UserSearchForm } from "../components/UserSearchForm";
 
 function UsersPage() {
   const navigate = useNavigate();
@@ -39,7 +39,7 @@ function UsersPage() {
       <Card className="mt-4 mb-2 shadow-sm">
         <Card.Body>
           <Card.Title>Buscar usuario</Card.Title>
-          <SearchForm users={users} />
+          <UserSearchForm users={users} />
         </Card.Body>
       </Card>
 

@@ -1,6 +1,6 @@
 import { Form, Row, Col, Button } from "react-bootstrap";
 
-export function SearchForm({ users }) {
+export function UserSearchForm({ users }) {
   return <Form>
     <Row>
       <Col sm={true} className="mt-2">
