@@ -12,11 +12,21 @@ export default function ProfilePage() {
 
     useEffect(() => {
         console.log(userId, typeId);
-        setUser({ id: 100100100, type: 'cedula', names: 'juan', lastnames: 'perez', email: '', phone: '123' });
+        setUser({
+            "id": 100100100,
+            "idType": "ti",
+            "names": "Max",
+            "lastnames": "Power",
+            "gender": "nb",
+            "birthDate": "2001-01-01",
+            "email": "max@power.com",
+            "phone": "3222222",
+            "profileImage": "https://via.placeholder.com/150",
+        });
 
     }, [userId, typeId]);
 
     return <Container data-testid="profile-page" gap={10}>
-        <UserForm user={user} update delete />
+        <UserForm user={user} />
     </Container>
 }

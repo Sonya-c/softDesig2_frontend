@@ -26,10 +26,10 @@ function UsersPage() {
 
   useEffect(() => {
     setUsers([
-      { id: 100100100, type: 'cedula', names: 'juan', lastnames: 'perez', email: '', phone: '123' },
-      { id: 200200200, type: 'cedula', names: 'pedro pablo', lastnames: 'ramirez', email: 'pr@gmail.com', phone: '' },
-      { id: 300300300, type: 'cedula', names: 'maria', lastnames: 'perez', email: '', phone: '123' },
-      { id: 400400400, type: 'cedula', names: 'jose', lastnames: 'ramirez', email: 'jr@mail.com', phone: '' }
+      { id: 100100100, idType: 'cc', names: 'juan', lastnames: 'perez', gender: "m", email: '', phone: '123' },
+      { id: 200200200, idType: 'cc', names: 'pedro pablo', lastnames: 'ramirez', gender: "m", email: 'pr@gmail.com', phone: '' },
+      { id: 300300300, idType: 'cc', names: 'maria', lastnames: 'perez', gender: "", email: 'f', phone: '123' },
+      { id: 400400400, idType: 'cc', names: 'jose', lastnames: 'ramirez', gender: "nb", email: 'jr@mail.com', phone: '' }
     ]);
   }, []);
 
