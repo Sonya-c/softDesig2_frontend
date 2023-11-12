@@ -1,21 +1,8 @@
 import { useState } from "react";
 import { Form, Row, Col, Image, Button } from "react-bootstrap";
 
-UserForm.defaultProps = {
-  user: {
-    "id": "",
-    "idType": "",
-    "names": "",
-    "lastnames": "",
-    "gender": "",
-    "birthDate": "",
-    "email": "",
-    "phone": "",
-    "profileImage": "https://via.placeholder.com/150",
-  }
-}
 
-export default function UserForm({ create = false, user }) {
+function UserForm({ create = false, user }) {
   const [formData, setFormData] = useState(user);
 
   const handleChange = (event) => {
@@ -43,7 +30,7 @@ export default function UserForm({ create = false, user }) {
     console.log(event.nativeEvent.submitter.name);
   }
 
-  return <Form onSubmit={handleSubmit}>
+  return <Form data-testid="user-form" onSubmit={handleSubmit}>
     <Row className="d-flex justify-content-sm-center mt-5">
       <Image
         src={formData.profileImage}
@@ -51,6 +38,7 @@ export default function UserForm({ create = false, user }) {
         height={150}
         width={150}
         style={{ objectFit: "cover" }}
+        data-testid="user-form-profile-image"
       />
     </Row>
 
@@ -68,6 +56,7 @@ export default function UserForm({ create = false, user }) {
           type="file" hidden
           onChange={handleLoadImage}
           accept="image/*"
+          data-testid="user-form-load-image"
         />
       </Form.Group>
     </Row>
@@ -83,7 +72,9 @@ export default function UserForm({ create = false, user }) {
               type="text"
               value={formData.id}
               onChange={handleChange}
-              required />
+              required
+              data-testid="user-form-id"
+            />
           </Col>
         </Form.Group>
 
@@ -96,7 +87,9 @@ export default function UserForm({ create = false, user }) {
               as="select"
               value={formData.idType}
               onChange={handleChange}
-              required >
+              required
+              data-testid="user-form-id-type"
+            >
               <option value=""></option>
               <option value="cc">Cedula</option>
               <option value="ti">TI</option>
@@ -119,7 +112,9 @@ export default function UserForm({ create = false, user }) {
               as="select"
               value={formData.gender}
               onChange={handleChange}
-              required>
+              required
+              data-testid="user-form-gender"
+            >
               <option value="">Periero no especificarlo</option>
               <option value="f">Femenino</option>
               <option value="m">Masculino</option>
@@ -139,6 +134,7 @@ export default function UserForm({ create = false, user }) {
               value={formData.names}
               onChange={handleChange}
               required
+              data-testid="user-form-names"
             />
           </Col>
         </Form.Group>
@@ -151,6 +147,7 @@ export default function UserForm({ create = false, user }) {
               value={formData.lastnames}
               onChange={handleChange}
               required
+              data-testid="user-form-lastnames"
             />
           </Col>
         </Form.Group>
@@ -163,6 +160,7 @@ export default function UserForm({ create = false, user }) {
               type="text"
               value={formData.email}
               onChange={handleChange}
+              data-testid="user-form-email"
             />
           </Col>
         </Form.Group>
@@ -175,6 +173,7 @@ export default function UserForm({ create = false, user }) {
               type="text"
               value={formData.phone}
               onChange={handleChange}
+              data-testid="user-form-phone"
             />
           </Col>
         </Form.Group>
@@ -184,16 +183,43 @@ export default function UserForm({ create = false, user }) {
 
     <Row>
       {create && <Col className="d-flex justify-content-sm-center">
-        <Button name="create" type="submit" variant="success">Crear</Button>
+        <Button
+          name="create"
+          type="submit"
+          variant="success"
+          data-testid="user-form-create-btn">Crear</Button>
       </Col>}
 
       {!create && <Col className="d-flex justify-content-sm-center">
-        <Button name="update" type="submit" >Guardar</Button>
+        <Button
+          name="update"
+          type="submit"
+          data-testid="user-form-update-btn">Guardar</Button>
       </Col>}
 
       {!create && <Col className="d-flex justify-content-sm-center">
-        <Button name="delete" type="submit" variant="danger">Eliminar</Button>
+        <Button
+          name="delete"
+          type="submit"
+          variant="danger"
+          data-testid="user-form-delete-btn">Eliminar</Button>
       </Col>}
     </Row>
   </Form>
 }
+
+UserForm.defaultProps = {
+  user: {
+    "id": "",
+    "idType": "",
+    "names": "",
+    "lastnames": "",
+    "gender": "",
+    "birthDate": "",
+    "email": "",
+    "phone": "",
+    "profileImage": "https://via.placeholder.com/150",
+  }
+}
+
+export default UserForm;

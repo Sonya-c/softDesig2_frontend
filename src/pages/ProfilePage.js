@@ -8,6 +8,7 @@ export default function ProfilePage() {
     const userId = useQuery().get('id');
     const typeId = useQuery().get('typeId');
 
+    const [isLoading, setIsLoading] = useState(true);
     const [user, setUser] = useState(null);
 
     useEffect(() => {
@@ -24,9 +25,10 @@ export default function ProfilePage() {
             "profileImage": "https://via.placeholder.com/150",
         });
 
+        setIsLoading(false);
     }, [userId, typeId]);
 
     return <Container data-testid="profile-page" gap={10}>
-        <UserForm user={user} />
+        {isLoading ? <p>Cargando...</p> : <UserForm user={user} />}
     </Container>
 }
