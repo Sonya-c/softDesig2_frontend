@@ -1,8 +1,12 @@
 import { useEffect, useState } from "react";
-import UserForm from "../components/UserForm";
 import useQuery from "../hooks/useQuery";
+
 import { Container } from "react-bootstrap";
 
+import UserForm from "../components/UserForm";
+import Loading from "../utils/Loading";
+
+import { delay } from "../utils/utils";
 
 export default function ProfilePage() {
     const userId = useQuery().get('id');
@@ -25,10 +29,13 @@ export default function ProfilePage() {
             "profileImage": "https://via.placeholder.com/150",
         });
 
-        setIsLoading(false);
+        delay(5000).then(() => // this is just for testing purposes, remove it when you use the API
+            setIsLoading(false)
+        );
     }, [userId, typeId]);
 
     return <Container data-testid="profile-page" gap={10}>
-        {isLoading ? <p>Cargando...</p> : <UserForm user={user} />}
+        {isLoading ?
+            <Loading /> : <UserForm user={user} />}
     </Container>
 }

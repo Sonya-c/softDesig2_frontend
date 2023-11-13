@@ -4,7 +4,7 @@ import { Outlet, useLocation, Link } from "react-router-dom";
 const Layout = () => {
     const location = useLocation()
 
-    return <>
+    return <Container fluid className="d-flex vh-100 flex-column" style={{ padding: 0, margin: 0 }}>
         <Navbar bg="light" data-bs-theme="light">
             <Container>
                 <Navbar.Brand href="/">{
@@ -19,11 +19,10 @@ const Layout = () => {
                 </Nav>
             </Container>
         </Navbar>
-        <Container fluid className="mh-100">
+        <Container fluid className="row flex-fill d-flex justify-content-start">
             <Outlet />
         </Container>
-
-    </>
+    </Container>
 }
 
 export default Layout;

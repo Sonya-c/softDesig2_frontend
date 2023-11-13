@@ -5,7 +5,10 @@ import { Container, Row, Col, Button, Card, Modal } from "react-bootstrap";
 import TableComponent from "../components/TableComponent";
 
 import UserForm from "../components/UserForm";
-import { UserSearchForm } from "../components/UserSearchForm";
+import UserSearchForm from "../components/UserSearchForm";
+import Loading from "../utils/Loading";
+
+import { delay } from "../utils/utils";
 
 function UsersPage() {
   const navigate = useNavigate();
@@ -15,6 +18,7 @@ function UsersPage() {
 
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const handleClose = () => setShowModal(false);
 
@@ -31,11 +35,14 @@ function UsersPage() {
       { id: 300300300, idType: 'cc', names: 'maria', lastnames: 'perez', gender: "", email: 'f', phone: '123' },
       { id: 400400400, idType: 'cc', names: 'jose', lastnames: 'ramirez', gender: "nb", email: 'jr@mail.com', phone: '' }
     ]);
+
+    delay(5000).then(() => // this is just for testing purposes, remove it when you use the API
+      setIsLoading(false)
+    );
   }, []);
 
-  return (
-    <Container data-testid="user-page" gap={10}>
-
+  return <Container data-testid="user-page" gap={10}>
+    {isLoading ? <Loading /> : (<>
       <Card className="mt-4 mb-2 shadow-sm">
         <Card.Body>
           <Card.Title>Buscar usuario</Card.Title>
@@ -77,8 +84,8 @@ function UsersPage() {
           <UserForm create />
         </Modal.Body>
       </Modal>
-    </Container>
-  );
+    </>)}
+  </Container>;
 }
 
 export default UsersPage;
