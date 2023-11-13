@@ -13,8 +13,8 @@ import { delay } from "../utils/utils";
 function UsersPage() {
   const navigate = useNavigate();
 
-  const columns = ["Identificación", "Tipo", "Nombres", "Apellidos", "Correo", "Teléfono"];
-  const userProperties = ["id", "type", "names", "lastnames", "email", "phone"];
+  const columns = ["Identificación", "Tipo", "Nombres", "Apellidos", "Fecha Nacimiento", "Correo", "Teléfono"];
+  const userProperties = ["id", "idType", "names", "lastnames", "birthDate", "email", "phone"];
 
   const [users, setUsers] = useState([]);
   const [showModal, setShowModal] = useState(false);
@@ -30,10 +30,10 @@ function UsersPage() {
 
   useEffect(() => {
     setUsers([
-      { id: 100100100, idType: 'cc', names: 'juan', lastnames: 'perez', gender: "m", email: '', phone: '123' },
-      { id: 200200200, idType: 'cc', names: 'pedro pablo', lastnames: 'ramirez', gender: "m", email: 'pr@gmail.com', phone: '' },
-      { id: 300300300, idType: 'cc', names: 'maria', lastnames: 'perez', gender: "", email: 'f', phone: '123' },
-      { id: 400400400, idType: 'cc', names: 'jose', lastnames: 'ramirez', gender: "nb", email: 'jr@mail.com', phone: '' }
+      { id: 100100100, idType: 'cc', names: 'juan', lastnames: 'perez', gender: "m", email: '', phone: '123', birthDate: '2000-09-12' },
+      { id: 200200200, idType: 'cc', names: 'pedro pablo', lastnames: 'ramirez', gender: "m", email: 'pr@gmail.com', phone: '', birthDate: '2000-09-12' },
+      { id: 300300300, idType: 'cc', names: 'maria', lastnames: 'perez', gender: "", email: 'f', phone: '123', birthDate: '2000-09-12' },
+      { id: 400400400, idType: 'cc', names: 'jose', lastnames: 'ramirez', gender: "nb", email: 'jr@mail.com', phone: '', birthDate: '2000-09-12' }
     ]);
 
     delay(5000).then(() => // this is just for testing purposes, remove it when you use the API

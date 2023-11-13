@@ -15,10 +15,10 @@ function LogsPage() {
 
   useEffect(() => {
     setLogs([
-      { "date": "12-03-23", "type": "read", "id": "123" },
-      { "date": "12-03-23", "type": "create", "id": "456" },
-      { "date": "12-03-23", "type": "update", "id": "789" },
-      { "date": "12-03-23", "type": "delete", "id": "ABC" },
+      { "date": "2023-09-1", "type": "read", "id": "123" },
+      { "date": "2023-09-2", "type": "create", "id": "456" },
+      { "date": "2023-09-3", "type": "update", "id": "789" },
+      { "date": "2023-09-4", "type": "delete", "id": "ABC" },
     ]);
 
     delay(5000).then(() => // this is just for testing purposes, remove it when you use the API

@@ -20,7 +20,11 @@ export default function LogSearchForm({ logs }) {
         <Form.Group>
           <Form.Label>Fecha</Form.Label>
           <Form.Control
-            type="date" />
+            type="date"
+            value={formData.date}
+            name="date"
+            onChange={(event) => handleChange(setFormData, event)}
+          />
         </Form.Group>
       </Col>
       <Col sm={true} className="mt-2">

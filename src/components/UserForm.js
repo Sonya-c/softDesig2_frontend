@@ -91,7 +91,12 @@ function UserForm({ create = false, user }) {
         <Form.Group as={Col} className="mb-3">
           <Form.Label disabled={!create} column>Fecha Nacimiento</Form.Label>
           <Col>
-            <Form.Control type="date" />
+            <Form.Control
+              type="date"
+              name="birthDate"
+              value={formData.birthDate}
+              onChange={(event) => handleChange(setFormData, event)}
+            />
           </Col>
         </Form.Group>
 
