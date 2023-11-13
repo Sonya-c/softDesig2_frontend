@@ -31,7 +31,7 @@ function LogsPage() {
       {isLoading ? <Loading /> : (<>
         <Card className="mt-3 mb-4 shadow-sm">
           <Card.Body>
-            <Card.Title>Buscar logs</Card.Title>
+            <Card.Title>Logs</Card.Title>
             <LogSearchForm logs={logs} />
           </Card.Body>
         </Card>

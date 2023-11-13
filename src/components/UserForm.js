@@ -21,7 +21,7 @@ function UserForm({ create = false, user }) {
   }
 
   return <Form data-testid="user-form" onSubmit={handleSubmit}>
-    <Row className="d-flex justify-content-sm-center mt-5">
+    <Row className="d-flex justify-content-center mt-5">
       <Image
         src={formData.profileImage}
         roundedCircle
@@ -52,17 +52,18 @@ function UserForm({ create = false, user }) {
     </Row>
 
     <Row>
-      <Col>
+      <div class="col-sm row-lg">
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Identificación</Form.Label>
           <Col>
             <Form.Control
               name="id"
               disabled={!create}
-              type="text"
+              type="number"
               value={formData.id}
               onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-id"
+              required
             />
           </Col>
         </Form.Group>
@@ -94,6 +95,7 @@ function UserForm({ create = false, user }) {
               name="birthDate"
               value={formData.birthDate}
               onChange={(event) => handleChange(setFormData, event)}
+              required
             />
           </Col>
         </Form.Group>
@@ -116,9 +118,9 @@ function UserForm({ create = false, user }) {
             </Form.Control>
           </Col>
         </Form.Group>
-      </Col>
+      </div>
 
-      <Col>
+      <div class="col-sm row-lg">
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Nombres</Form.Label>
           <Col>
@@ -151,53 +153,60 @@ function UserForm({ create = false, user }) {
           <Col>
             <Form.Control
               name="email"
-              type="text"
+              type="email"
               value={formData.email}
               onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-email"
+              required
             />
           </Col>
         </Form.Group>
 
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Ceular</Form.Label>
-          <Col>
-            <Form.Control
-              name="phone"
-              type="text"
-              value={formData.phone}
-              onChange={(event) => handleChange(setFormData, event)}
-              data-testid="user-form-phone"
-            />
-          </Col>
+          <Row style={{ paddingLeft: "15px" }} className="m-0">
+            <Col className="col-2 border mr-0 pl-0 pr-0 d-flex align-items-center justify-content-center" sm={2}>
+              <p className="m-0">+57</p>
+            </Col>
+            <Col className="col-10 ml-0 pl-0" sm={10}>
+              <Form.Control
+                name="phone"
+                type="tel"
+                value={formData.phone}
+                onChange={(event) => handleChange(setFormData, event)}
+                data-testid="user-form-phone"
+                pattern="([3][0-9]{9})|(60[1-8][0-9]{7})"
+                title="Introduzca un número de celular"
+              />
+            </Col>
+          </Row>
         </Form.Group>
-
-      </Col>
+      </div>
     </Row>
 
-    <Row>
-      {create && <Col className="d-flex justify-content-sm-center">
+    <Row className="mt-5 mb-5 d-flex justify-content-center" style={{ gap: "30px" }} >
+      {create &&
         <Button
           name="create"
           type="submit"
           variant="success"
           data-testid="user-form-create-btn">Crear</Button>
-      </Col>}
+      }
 
-      {!create && <Col className="d-flex justify-content-sm-center">
+      {!create &&
         <Button
           name="update"
           type="submit"
           data-testid="user-form-update-btn">Guardar</Button>
-      </Col>}
+      }
 
-      {!create && <Col className="d-flex justify-content-sm-center">
+      {!create &&
         <Button
           name="delete"
           type="submit"
           variant="danger"
           data-testid="user-form-delete-btn">Eliminar</Button>
-      </Col>}
+      }
     </Row>
   </Form>
 }

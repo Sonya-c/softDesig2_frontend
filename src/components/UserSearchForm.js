@@ -18,7 +18,6 @@ export default function UserSearchForm({ users }) {
       <Col sm={true} className="mt-2">
         <label htmlFor="form-id">Identificación</label>
         <Form.Control
-          required
           as="select"
           id="search-form-id"
           name="id"
@@ -34,7 +33,6 @@ export default function UserSearchForm({ users }) {
       <Col sm={true} className="mt-2">
         <label htmlFor="form-id-type">Tipo</label>
         <Form.Control
-          required
           as="select"
           id="search-form-id"
           name="idType"
@@ -46,7 +44,7 @@ export default function UserSearchForm({ users }) {
         </Form.Control>
       </Col>
 
-      <Col sm={2} className="d-flex align-items-end justify-content-sm-center">
+      <Col sm={2} className="d-flex align-items-end justify-content-sm-center mt-4 mt-md-0">
         <Button type="submit" id="search-form-submit">Buscar</Button>
       </Col>
     </Row>

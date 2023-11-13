@@ -53,7 +53,7 @@ function UsersPage() {
       <Card className="mt-3 mb-4 shadow-sm">
         <Card.Body>
           <Row>
-            <Col sm={10}><Card.Title>Todos los usuario</Card.Title></Col>
+            <Col sm={10}><Card.Title>Usuarios</Card.Title></Col>
             <Col sm={2} className="d-flex justify-content-sm-center">
               <Button onClick={handleShowModal}>Crear</Button>
             </Col>
@@ -76,7 +76,7 @@ function UsersPage() {
       <Modal show={showModal} onHide={handleClose} centered size="lg">
         <Modal.Header>
           <Col sm={10}><Modal.Title>Crear usuario</Modal.Title></Col>
-          <Col sm={2} className="d-flex justify-content-sm-end">
+          <Col sm={2} className="d-flex justify-content-end">
             <Button onClick={handleClose}>Close</Button>
           </Col>
         </Modal.Header>

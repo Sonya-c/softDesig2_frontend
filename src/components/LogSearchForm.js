@@ -63,7 +63,7 @@ export default function LogSearchForm({ logs }) {
         </Form.Group>
       </Col>
 
-      <Col sm={2} className="d-flex align-items-end justify-content-sm-center">
+      <Col sm={2} className="d-flex align-items-end justify-content-sm-center  mt-4 mt-md-0">
         <Button type="submit" id="search-form-submit">Buscar</Button>
       </Col>
     </Row>
