@@ -1,19 +1,9 @@
 import { useState } from "react";
 import { Form, Row, Col, Image, Button } from "react-bootstrap";
-
+import { handleChange } from "../utils/utils";
 
 function UserForm({ create = false, user }) {
   const [formData, setFormData] = useState(user);
-
-  const handleChange = (event) => {
-    const { name, value } = event.target;
-    console.log(name, value);
-
-    setFormData((prevFormData) => ({
-      ...prevFormData,
-      [name]: value,
-    }));
-  };
 
   const handleLoadImage = (event) => {
     const { name, files } = event.target;
@@ -28,6 +18,7 @@ function UserForm({ create = false, user }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.nativeEvent.submitter.name);
+    console.log(formData);
   }
 
   return <Form data-testid="user-form" onSubmit={handleSubmit}>
@@ -71,7 +62,7 @@ function UserForm({ create = false, user }) {
               disabled={!create}
               type="text"
               value={formData.id}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               required
               data-testid="user-form-id"
             />
@@ -86,7 +77,7 @@ function UserForm({ create = false, user }) {
               name="type"
               as="select"
               value={formData.idType}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               required
               data-testid="user-form-id-type"
             >
@@ -111,7 +102,7 @@ function UserForm({ create = false, user }) {
               name="gender"
               as="select"
               value={formData.gender}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               required
               data-testid="user-form-gender"
             >
@@ -132,7 +123,7 @@ function UserForm({ create = false, user }) {
               name="names"
               type="text"
               value={formData.names}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               required
               data-testid="user-form-names"
             />
@@ -145,7 +136,7 @@ function UserForm({ create = false, user }) {
               name="lastnames"
               type="text"
               value={formData.lastnames}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               required
               data-testid="user-form-lastnames"
             />
@@ -159,7 +150,7 @@ function UserForm({ create = false, user }) {
               name="email"
               type="text"
               value={formData.email}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-email"
             />
           </Col>
@@ -172,7 +163,7 @@ function UserForm({ create = false, user }) {
               name="phone"
               type="text"
               value={formData.phone}
-              onChange={handleChange}
+              onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-phone"
             />
           </Col>
