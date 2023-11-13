@@ -18,7 +18,6 @@ function UserForm({ create = false, user }) {
   const handleSubmit = (event) => {
     event.preventDefault();
     console.log(event.nativeEvent.submitter.name);
-    console.log(formData);
   }
 
   return <Form data-testid="user-form" onSubmit={handleSubmit}>
@@ -63,7 +62,6 @@ function UserForm({ create = false, user }) {
               type="text"
               value={formData.id}
               onChange={(event) => handleChange(setFormData, event)}
-              required
               data-testid="user-form-id"
             />
           </Col>
@@ -74,7 +72,7 @@ function UserForm({ create = false, user }) {
           <Col>
             <Form.Control
               disabled={!create}
-              name="type"
+              name="idType"
               as="select"
               value={formData.idType}
               onChange={(event) => handleChange(setFormData, event)}
