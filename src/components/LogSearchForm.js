@@ -2,7 +2,7 @@ import { Form, Row, Col, Button } from "react-bootstrap";
 import { handleChange } from "../utils/utils";
 import { useState } from "react";
 
-export default function LogSearchForm({ logs }) {
+export default function LogSearchForm({ logs, search }) {
   const [formData, setFormData] = useState({
     doc: "",
     type: "",
@@ -11,7 +11,7 @@ export default function LogSearchForm({ logs }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    search(formData);
   }
 
   return <Form onSubmit={handleSubmit}>
@@ -55,10 +55,10 @@ export default function LogSearchForm({ logs }) {
             onChange={(event) => handleChange(setFormData, event)}
           >
             <option value=""></option>
-            <option value="c">Create</option>
-            <option value="r">Read</option>
-            <option value="u">Update</option>
-            <option value="d">Create</option>
+            <option value="create">Create</option>
+            <option value="read">Read</option>
+            <option value="update">Update</option>
+            <option value="delete">Delete</option>
           </Form.Control>
         </Form.Group>
       </Col>

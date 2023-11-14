@@ -3,27 +3,41 @@ import { useEffect, useState } from "react";
 
 import TableComponent from "../components/TableComponent";
 import LogSearchForm from "../components/LogSearchForm";
-import { delay } from "../utils/utils";
+
 import Loading from "../utils/Loading";
+import { LogsApi } from "../apis/logsAPI";
 
 function LogsPage() {
   const columns = ["Fecha", "Tipo", "Identificación"];
   const logsProperties = ["date", "type", "doc"];
 
+  const [allLogs, setAllLogs] = useState([]);
   const [logs, setLogs] = useState([]);
+
   const [isLoading, setIsLoading] = useState(true);
 
-  useEffect(() => {
-    setLogs([
-      { "date": "2023-09-1", "type": "read", "doc": "123" },
-      { "date": "2023-09-2", "type": "create", "doc": "456" },
-      { "date": "2023-09-3", "type": "update", "doc": "789" },
-      { "date": "2023-09-4", "type": "delete", "doc": "ABC" },
-    ]);
+  const search = (formData) => {
+    setIsLoading(true);
+    LogsApi.getBy(formData.doc, formData.type, formData.date)
+      .then((logs) => {
+        setLogs(logs);
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        setIsLoading(false);
+      });
+  }
 
-    delay(5000).then(() => // this is just for testing purposes, remove it when you use the API
-      setIsLoading(false)
-    );
+  useEffect(() => {
+    LogsApi.getAll()
+      .then((logs) => {
+        setAllLogs(logs);
+        setLogs(logs);
+      }).catch((error) => {
+        console.error(error);
+      }).finally(() => {
+        setIsLoading(false);
+      });
   }, []);
 
   return (
@@ -32,7 +46,7 @@ function LogsPage() {
         <Card className="mt-3 mb-4 shadow-sm">
           <Card.Body>
             <Card.Title>Logs</Card.Title>
-            <LogSearchForm logs={logs} />
+            <LogSearchForm logs={allLogs} search={search} />
           </Card.Body>
         </Card>
         <Card className="mt-3 mb-4 shadow-sm">
