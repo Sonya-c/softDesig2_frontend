@@ -8,17 +8,17 @@ import Loading from "../utils/Loading";
 
 function LogsPage() {
   const columns = ["Fecha", "Tipo", "Identificación"];
-  const logsProperties = ["date", "type", "id"];
+  const logsProperties = ["date", "type", "doc"];
 
   const [logs, setLogs] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     setLogs([
-      { "date": "2023-09-1", "type": "read", "id": "123" },
-      { "date": "2023-09-2", "type": "create", "id": "456" },
-      { "date": "2023-09-3", "type": "update", "id": "789" },
-      { "date": "2023-09-4", "type": "delete", "id": "ABC" },
+      { "date": "2023-09-1", "type": "read", "doc": "123" },
+      { "date": "2023-09-2", "type": "create", "doc": "456" },
+      { "date": "2023-09-3", "type": "update", "doc": "789" },
+      { "date": "2023-09-4", "type": "delete", "doc": "ABC" },
     ]);
 
     delay(5000).then(() => // this is just for testing purposes, remove it when you use the API

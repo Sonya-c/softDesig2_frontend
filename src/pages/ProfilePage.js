@@ -11,8 +11,8 @@ import Loading from "../utils/Loading";
 import ErrorMsg from "../utils/ErrorMsg";
 
 export default function ProfilePage() {
-  const userId = useQuery().get('id');
-  const typeId = useQuery().get('typeId');
+  const userId = useQuery().get('doc');
+  const typeId = useQuery().get('docType');
 
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);

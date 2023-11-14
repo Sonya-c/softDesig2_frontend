@@ -4,7 +4,7 @@ import { useState } from "react";
 
 export default function LogSearchForm({ logs }) {
   const [formData, setFormData] = useState({
-    id: "",
+    doc: "",
     type: "",
     date: "",
   });
@@ -29,27 +29,27 @@ export default function LogSearchForm({ logs }) {
       </Col>
       <Col sm={true} className="mt-2">
         <Form.Group>
-          <Form.Label htmlFor="form-id">Identificación</Form.Label >
+          <Form.Label htmlFor="form-doc">Identificación</Form.Label >
           <Form.Control
             as="select"
-            id="search-form-id"
-            value={formData.id}
-            name="id"
+            id="search-form-doc"
+            value={formData.doc}
+            name="doc"
             onChange={(event) => handleChange(setFormData, event)}
           >
             <option value=""></option>
             {logs.map((log) => {
-              return <option key={"option" + log.id} value={log.id}>{log.id}</option>
+              return <option key={"option" + log.doc} value={log.doc}>{log.doc}</option>
             })}
           </Form.Control>
         </Form.Group>
       </Col>
       <Col sm={true} className="mt-2">
         <Form.Group>
-          <Form.Label htmlFor="form-id-type">Tipo</Form.Label >
+          <Form.Label htmlFor="form-doc-type">Tipo</Form.Label >
           <Form.Control
             as="select"
-            id="search-form-id"
+            id="search-form-doc"
             value={formData.type}
             name="type"
             onChange={(event) => handleChange(setFormData, event)}

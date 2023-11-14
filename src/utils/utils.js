@@ -13,8 +13,8 @@ export const handleChange = (setFormData, event) => {
 
 export const toUserData = (data) => {
     return {
-        "id": data.gov_id,
-        "idType": data.id_type,
+        "doc": data.gov_id,
+        "docType": data.id_type,
         "names": data.names,
         "lastnames": data.lastnames,
         "gender": data.gender,
@@ -27,8 +27,8 @@ export const toUserData = (data) => {
 
 export const fromUserData = (userData) => {
     return {
-        "gov_id": userData.id,
-        "id_type": userData.idType,
+        "gov_id": userData.doc,
+        "id_type": userData.docType,
         "names": userData.names,
         "lastnames": userData.lastnames,
         "gender": userData.gender,

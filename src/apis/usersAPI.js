@@ -17,10 +17,10 @@ export const UsersApi = {
       return toUserData(row);
     });
   },
-  getById: async (id, idType) => {
+  getById: async (doc, docType) => {
     const response = await api.request({
       method: 'GET',
-      url: `${url}?gov_id=${id}&id_type=${idType}`
+      url: `${url}?gov_id=${doc}&id_type=${docType}`
     });
 
     console.info("UsersApi.getById", response);
@@ -37,9 +37,10 @@ export const UsersApi = {
     console.info("UsersApi.create", response);
   },
   update: async (user) => {
+    console.log(`${url}?gov_id=${user.doc}&id_type=${user.docType}`);
     let response = await api.request({
       method: 'GET',
-      url: `${url}?gov_id=${user.id}&id_type=${user.idType}`
+      url: `${url}?gov_id=${user.doc}&id_type=${user.docType}`
     });
 
     response = await api.request({
@@ -51,10 +52,10 @@ export const UsersApi = {
     console.info("UsersApi.update", response.data);
   },
 
-  delete: async (id, idType) => {
+  delete: async (doc, docType) => {
     let response = await api.request({
       method: 'GET',
-      url: `${url}?gov_id=${id}&id_type=${idType}`
+      url: `${url}?gov_id=${doc}&id_type=${docType}`
     });
 
     response = await api.request({

@@ -6,8 +6,8 @@ import { act } from 'react-dom/test-utils';
 
 
 const testUserData = {
-    "id": "101",
-    "idType": "ti",
+    "doc": "101",
+    "docType": "ti",
     "names": "User name",
     "lastnames": "User lastname",
     "gender": "nb",
@@ -26,9 +26,9 @@ test('renders UserForm (update/delete mode)', async () => {
 
     expect(await screen.findByTestId("user-form-load-image")).toBeInTheDocument();
 
-    expect(await screen.findByTestId("user-form-id")).toBeInTheDocument();
+    expect(await screen.findByTestId("user-form-doc")).toBeInTheDocument();
 
-    expect(await screen.findByTestId("user-form-id-type")).toBeInTheDocument();
+    expect(await screen.findByTestId("user-form-doc-type")).toBeInTheDocument();
 
     // expect user-form-birthday
     expect(await screen.findByTestId("user-form-gender")).toBeInTheDocument();
@@ -54,9 +54,9 @@ test('renders UserForm (create mode)', async () => {
 
     expect(await screen.findByTestId("user-form-load-image")).toBeInTheDocument();
 
-    expect(await screen.findByTestId("user-form-id")).toBeInTheDocument();
+    expect(await screen.findByTestId("user-form-doc")).toBeInTheDocument();
 
-    expect(await screen.findByTestId("user-form-id-type")).toBeInTheDocument();
+    expect(await screen.findByTestId("user-form-doc-type")).toBeInTheDocument();
 
     // expect user-form-birthday
     expect(await screen.findByTestId("user-form-gender")).toBeInTheDocument();
@@ -86,23 +86,23 @@ test('GIVEN an user THEN show user data as default', async () => {
 
 });
 
-test("[create] WHEN user change id THEN show updated id", async () => {
+test("[create] WHEN user change doc THEN show updated doc", async () => {
     render(<UserForm create />);
 
     await act(async () =>
         await userEvent.type(
-            await screen.findByTestId("user-form-id"), "314"
+            await screen.findByTestId("user-form-doc"), "314"
         )
     );
     expect(await screen.findByDisplayValue("314")).toBeInTheDocument();
 });
 
-test("[update/date] WHEN user change id THEN not updated id", async () => {
+test("[update/date] WHEN user change doc THEN not updated doc", async () => {
     render(<UserForm user={testUserData} />);
 
     await act(async () =>
         await userEvent.type(
-            await screen.findByTestId("user-form-id"), "314"
+            await screen.findByTestId("user-form-doc"), "314"
         )
     );
     expect(await screen.findByDisplayValue("101")).toBeInTheDocument();

@@ -13,11 +13,11 @@ export default function TableComponent({ data, columns, dataColumns, actionRow }
         </tr>
       </thead>
       <tbody>
-        {data.map((element) => {
-          return <tr key={"row_" + element.id} onClick={() => actionRow(element)}>
+        {data.map((element, index) => {
+          return <tr key={"row_" + index} onClick={() => actionRow(element)}>
             {dataColumns.map((column) => {
 
-              return <td key={"cell_" + element.id + "_" + column}> {element[column]} </td>
+              return <td key={"cell_" + index + "_" + column}> {element[column]} </td>
             })}
           </tr>
         })}

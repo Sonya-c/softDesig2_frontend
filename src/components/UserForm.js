@@ -9,7 +9,7 @@ import Loading from "../utils/Loading";
 
 function UserForm({ create: create_ = false, user }) {
   const navigate = useNavigate();
-  if (user.id === "") create_ = true;
+  if (user.doc === "") create_ = true;
 
   const [create, setCreate] = useState(create_);
   const [formData, setFormData] = useState(user);
@@ -52,7 +52,7 @@ function UserForm({ create: create_ = false, user }) {
           });
         break;
       case 'delete':
-        UsersApi.delete(formData.id, formData.idType)
+        UsersApi.delete(formData.doc, formData.docType)
           .catch(() => {
             setError(true);
           })
@@ -104,12 +104,12 @@ function UserForm({ create: create_ = false, user }) {
           <Form.Label column>Identificación</Form.Label>
           <Col>
             <Form.Control
-              name="id"
+              name="doc"
               disabled={!create}
               type="number"
-              value={formData.id}
+              value={formData.doc}
               onChange={(event) => handleChange(setFormData, event)}
-              data-testid="user-form-id"
+              data-testid="user-form-doc"
               required
             />
           </Col>
@@ -120,12 +120,12 @@ function UserForm({ create: create_ = false, user }) {
           <Col>
             <Form.Control
               disabled={!create}
-              name="idType"
+              name="docType"
               as="select"
-              value={formData.idType}
+              value={formData.docType}
               onChange={(event) => handleChange(setFormData, event)}
               required
-              data-testid="user-form-id-type"
+              data-testid="user-form-doc-type"
             >
               <option value=""></option>
               <option value="cc">Cedula</option>
@@ -155,7 +155,6 @@ function UserForm({ create: create_ = false, user }) {
               as="select"
               value={formData.gender}
               onChange={(event) => handleChange(setFormData, event)}
-              required
               data-testid="user-form-gender"
             >
               <option value="">Periero no especificarlo</option>
@@ -271,8 +270,8 @@ function UserForm({ create: create_ = false, user }) {
 
 UserForm.defaultProps = {
   user: {
-    "id": "",
-    "idType": "",
+    "doc": "",
+    "docType": "",
     "names": "",
     "lastnames": "",
     "gender": "",

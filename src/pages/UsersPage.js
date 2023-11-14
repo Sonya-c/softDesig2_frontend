@@ -15,7 +15,7 @@ function UsersPage() {
   const navigate = useNavigate();
 
   const columns = ["Identificación", "Tipo", "Nombres", "Apellidos", "Fecha Nacimiento", "Correo", "Teléfono"];
-  const userProperties = ["id", "idType", "names", "lastnames", "birthDate", "email", "phone"];
+  const userProperties = ["doc", "docType", "names", "lastnames", "birthDate", "email", "phone"];
 
   const [users, setUsers] = useState([]);
   const [isLoading, setIsLoading] = useState(true);
@@ -26,12 +26,12 @@ function UsersPage() {
   }
 
   const handleActionRow = (userData) => {
-    navigate(`/profile?id=${userData.id}&typeId=${userData.idType}`);
+    navigate(`/profile?doc=${userData.doc}&docType=${userData.docType}`);
   }
 
   const searchUseres = (userData) => {
     setIsLoading(true);
-    navigate(`/profile?id=${userData.id}&typeId=${userData.idType}`);
+    navigate(`/profile?doc=${userData.doc}&docType=${userData.docType}`);
   }
 
   useEffect(() => {
