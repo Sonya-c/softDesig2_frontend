@@ -1,13 +1,23 @@
-import { useState } from "react";
-import { Form, Row, Col, Image, Button } from "react-bootstrap";
-import { handleChange } from "../utils/utils";
+import { UsersApi } from "../apis/usersAPI";
 
-function UserForm({ create = false, user }) {
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
+
+import { Form, Row, Col, Image, Button, Modal } from "react-bootstrap";
+import { handleChange } from "../utils/utils";
+import Loading from "../utils/Loading";
+
+function UserForm({ create: create_ = false, user }) {
+  const navigate = useNavigate();
+  if (user.id === "") create_ = true;
+
+  const [create, setCreate] = useState(create_);
   const [formData, setFormData] = useState(user);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(false);
 
   const handleLoadImage = (event) => {
     const { name, files } = event.target;
-    console.log(name, files[0]);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -15,15 +25,52 @@ function UserForm({ create = false, user }) {
     }));
   }
 
+  const handleClose = () => setError(false);
+
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(event.nativeEvent.submitter.name);
+    setIsLoading(true);
+
+    switch (event.nativeEvent.submitter.name) {
+      case 'create':
+        UsersApi.create(formData)
+          .catch(() => {
+            setError(true);
+          })
+          .then(() => {
+            setCreate(false);
+            setIsLoading(false);
+          });
+        break;
+      case 'update':
+        UsersApi.update(formData)
+          .catch(() => {
+            setError(true);
+          })
+          .then(() => {
+            setIsLoading(false);
+          });
+        break;
+      case 'delete':
+        UsersApi.delete(formData.id, formData.idType)
+          .catch(() => {
+            setError(true);
+          })
+          .then(() => {
+            error ? setIsLoading(false) : navigate("/");
+          });
+        break;
+      default:
+        break;
+    }
   }
+
+  if (isLoading) return <Loading />
 
   return <Form data-testid="user-form" onSubmit={handleSubmit}>
     <Row className="d-flex justify-content-center mt-5">
       <Image
-        src={formData.profileImage}
+        src={formData.profileImage || "https://via.placeholder.com/150"}
         roundedCircle
         height={150}
         width={150}
@@ -52,7 +99,7 @@ function UserForm({ create = false, user }) {
     </Row>
 
     <Row>
-      <div class="col-sm row-lg">
+      <div className="col-sm row-lg">
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Identificación</Form.Label>
           <Col>
@@ -120,7 +167,7 @@ function UserForm({ create = false, user }) {
         </Form.Group>
       </div>
 
-      <div class="col-sm row-lg">
+      <div className="col-sm row-lg">
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Nombres</Form.Label>
           <Col>
@@ -208,6 +255,17 @@ function UserForm({ create = false, user }) {
           data-testid="user-form-delete-btn">Eliminar</Button>
       }
     </Row>
+
+    <Modal variant="danger" centered show={error} onHide={handleClose}>
+      <Modal.Title>
+        <Modal.Header>
+          <Modal.Title>Error</Modal.Title>
+        </Modal.Header>
+      </Modal.Title>
+      <Modal.Body className="">
+        <p className="m-0">Un error ha ocurrido. Por favor, intente nuevamente</p>
+      </Modal.Body>
+    </Modal>
   </Form>
 }
 
@@ -221,7 +279,7 @@ UserForm.defaultProps = {
     "birthDate": "",
     "email": "",
     "phone": "",
-    "profileImage": "https://via.placeholder.com/150",
+    "profileImage": null,
   }
 }
 

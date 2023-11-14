@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Form, Row, Col, Button } from "react-bootstrap";
 import { handleChange } from "../utils/utils";
 
-export default function UserSearchForm({ users }) {
+export default function UserSearchForm({ users, search }) {
   const [formData, setFormData] = useState({
     id: "",
     idType: "",
@@ -10,7 +10,7 @@ export default function UserSearchForm({ users }) {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log(formData);
+    search(formData);
   }
 
   return <Form onSubmit={handleSubmit}>
@@ -23,6 +23,7 @@ export default function UserSearchForm({ users }) {
           name="id"
           onChange={(event) => handleChange(setFormData, event)}
           value={formData.id}
+          required
         >
           <option value=""></option>
           {users.map((user) => {
@@ -37,6 +38,7 @@ export default function UserSearchForm({ users }) {
           id="search-form-id"
           name="idType"
           onChange={(event) => handleChange(setFormData, event)}
+          required
         >
           <option value=""></option>
           <option value="cc">Cedula</option>
