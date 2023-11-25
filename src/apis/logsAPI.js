@@ -34,7 +34,20 @@ export const LogsApi = {
   },
 
 
-  delete: async (logId) => {
+  delete: async (doc, type, date) => {
+    const response = await api.request({
+      method: 'DELETE',
+      url: `${url}` +
+        `${(doc || type || date) && "?"}` +
+        `${doc && "doc=" + doc}` +
+        `${doc && type && "&"}` +
+        `${type && "type=" + type}` +
+        `${type && date && "&"}` +
+        `${date && "date=" + date}`
+    });
 
+    console.info("LogsApi.getBy", response);
+
+    return response.data;
   }
 }
