@@ -3,9 +3,10 @@ import { UsersApi } from "../apis/usersAPI";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 
-import { Form, Row, Col, Image, Button, Modal } from "react-bootstrap";
+import { Form, Row, Col, Image, Button } from "react-bootstrap";
 import { handleChange } from "../utils/utils";
 import Loading from "../utils/Loading";
+import Msg from "./Msg";
 
 function UserForm({ create: create_ = false, user }) {
   const navigate = useNavigate();
@@ -14,7 +15,9 @@ function UserForm({ create: create_ = false, user }) {
   const [create, setCreate] = useState(create_);
   const [formData, setFormData] = useState(user);
   const [isLoading, setIsLoading] = useState(false);
+
   const [error, setError] = useState(false);
+  const [errorContact, setErrorContact] = useState(false);
 
   const handleLoadImage = (event) => {
     const { name, files } = event.target;
@@ -25,40 +28,33 @@ function UserForm({ create: create_ = false, user }) {
     }));
   }
 
-  const handleClose = () => setError(false);
-
   const handleSubmit = (event) => {
     event.preventDefault();
+    if (formData.email === "" && formData.phone === "") {
+      setErrorContact(true);
+      return;
+    }
+
+    console.log("UserForm Form = ", formData);
+
     setIsLoading(true);
 
     switch (event.nativeEvent.submitter.name) {
       case 'create':
         UsersApi.create(formData)
-          .catch(() => {
-            setError(true);
-          })
-          .then(() => {
-            setCreate(false);
-            setIsLoading(false);
-          });
+          .then(() => setCreate(false))
+          .catch(() => { setError(true); })
+          .finally(() => { setIsLoading(false); });
         break;
       case 'update':
         UsersApi.update(formData)
-          .catch(() => {
-            setError(true);
-          })
-          .then(() => {
-            setIsLoading(false);
-          });
+          .catch(() => { setError(true); })
+          .finally(() => { setIsLoading(false); });
         break;
       case 'delete':
         UsersApi.delete(formData.doc, formData.docType)
-          .catch(() => {
-            setError(true);
-          })
-          .then(() => {
-            error ? setIsLoading(false) : navigate("/");
-          });
+          .catch(() => { setError(true); })
+          .finally(() => { error ? setIsLoading(false) : navigate("/"); });
         break;
       default:
         break;
@@ -106,7 +102,10 @@ function UserForm({ create: create_ = false, user }) {
             <Form.Control
               name="doc"
               disabled={!create}
-              type="number"
+              type="text"
+              maxLength={10}
+              pattern="^[0-9]{1,10}$"
+              title="Debe ser un número de 10 digitos"
               value={formData.doc}
               onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-doc"
@@ -168,17 +167,34 @@ function UserForm({ create: create_ = false, user }) {
 
       <div className="col-sm row-lg">
         <Form.Group as={Col} className="mb-3">
-          <Form.Label column>Nombres</Form.Label>
-          <Col>
-            <Form.Control
-              name="names"
-              type="text"
-              value={formData.names}
-              onChange={(event) => handleChange(setFormData, event)}
-              required
-              data-testid="user-form-names"
-            />
-          </Col>
+
+          <Row style={{ marginLeft: "15px", marginRight: "15px" }}>
+            <Col className="ml-0 p-0">
+              <Form.Label column>Primer nombre</Form.Label>
+              <Form.Control
+                name="name"
+                type="text"
+                pattern="^[a-zA-Z]{1,30}$"
+                title="No puede ser un número y no mayor de 30 caracteres"
+                value={formData.name}
+                onChange={(event) => handleChange(setFormData, event)}
+                required
+                data-testid="user-form-name"
+              />
+            </Col>
+            <Col className="mr-0 p-0">
+              <Form.Label column>Segundo nombre</Form.Label>
+              <Form.Control
+                name="middlename"
+                type="text"
+                pattern="^[a-zA-Z]{1,30}$"
+                title="No puede ser un número y no mayor de 30 caracteres"
+                value={formData.middlename}
+                onChange={(event) => handleChange(setFormData, event)}
+                data-testid="user-form-middlename"
+              />
+            </Col>
+          </Row>
         </Form.Group>
         <Form.Group as={Col} className="mb-3">
           <Form.Label column>Apellidos</Form.Label>
@@ -186,6 +202,8 @@ function UserForm({ create: create_ = false, user }) {
             <Form.Control
               name="lastnames"
               type="text"
+              pattern="^[a-zA-Z]{1,30}$"
+              title="No puede ser un número y no mayor de 30 caracteres"
               value={formData.lastnames}
               onChange={(event) => handleChange(setFormData, event)}
               required
@@ -203,7 +221,6 @@ function UserForm({ create: create_ = false, user }) {
               value={formData.email}
               onChange={(event) => handleChange(setFormData, event)}
               data-testid="user-form-email"
-              required
             />
           </Col>
         </Form.Group>
@@ -255,16 +272,9 @@ function UserForm({ create: create_ = false, user }) {
       }
     </Row>
 
-    <Modal variant="danger" centered show={error} onHide={handleClose}>
-      <Modal.Title>
-        <Modal.Header>
-          <Modal.Title>Error</Modal.Title>
-        </Modal.Header>
-      </Modal.Title>
-      <Modal.Body className="">
-        <p className="m-0">Un error ha ocurrido. Por favor, intente nuevamente</p>
-      </Modal.Body>
-    </Modal>
+    <Msg show={error} handleClose={() => setError(false)} title={"Error"} body={"Ocurrió un error"} />
+    <Msg show={errorContact} handleClose={() => setErrorContact(false)} title={"Error"} body={"Por favor ingrese al menos un medio de contacto (correo o célular)"} />
+
   </Form>
 }
 
@@ -272,7 +282,8 @@ UserForm.defaultProps = {
   user: {
     "doc": "",
     "docType": "",
-    "names": "",
+    "name": "",
+    "middlename": "",
     "lastnames": "",
     "gender": "",
     "birthDate": "",

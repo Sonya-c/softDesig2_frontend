@@ -1,8 +1,9 @@
 import axios from "axios";
 
 export const api = axios.create({
-    baseURL: "https://retoolapi.dev",
+    baseURL: "http://localhost:8000",
     headers: {
-        "content-type": "application/json"
+        "content-type": "application/json",
+        "Access-Control-Allow-Origin": "*"
     }
 });

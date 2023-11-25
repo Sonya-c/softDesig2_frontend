@@ -16,7 +16,9 @@ export default function ProfilePage() {
 
   const [user, setUser] = useState(null);
   const [isLoading, setIsLoading] = useState(true);
+
   const [error, setError] = useState(false);
+  const [errorMsg, setErrorMsg] = useState(undefined);
 
   useEffect(() => {
     if (!userId || !typeId) {
@@ -28,7 +30,12 @@ export default function ProfilePage() {
 
     UsersApi.getById(userId, typeId).then((user) => {
       setUser(user);
-    }).catch(() => {
+    }).catch((error) => {
+      if (error.response.status === 404) {
+        setErrorMsg("Usuario no encontrado")
+      } else {
+        setErrorMsg(undefined)
+      }
       setError(true);
     }).then(() => {
       setIsLoading(false);
@@ -36,7 +43,10 @@ export default function ProfilePage() {
   }, [userId, typeId]);
 
   return <Container data-testid="profile-page" gap={10}>
-    {isLoading ? <Loading /> : error ? <ErrorMsg /> :
-      <UserForm user={user || undefined} />}
+    {
+      isLoading ? <Loading /> :
+        error ? <ErrorMsg msg={errorMsg} /> :
+          <UserForm user={user || undefined} />
+    }
   </Container>
 }
