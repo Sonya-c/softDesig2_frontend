@@ -19,8 +19,13 @@ function UserForm({ create: create_ = false, user }) {
   const [error, setError] = useState(false);
   const [errorContact, setErrorContact] = useState(false);
 
+  const [profileImage, setProfileImage] = useState(null);
+
   const handleLoadImage = (event) => {
     const { name, files } = event.target;
+
+    setProfileImage(files);
+    console.log(profileImage);
 
     setFormData((prevFormData) => ({
       ...prevFormData,
@@ -41,19 +46,30 @@ function UserForm({ create: create_ = false, user }) {
 
     switch (event.nativeEvent.submitter.name) {
       case 'create':
-        UsersApi.create(formData)
-          .then(() => setCreate(false))
-          .catch(() => { setError(true); })
+        UsersApi.create(formData, profileImage)
+          .then(async () => {
+            setCreate(false)
+
+            UsersApi
+              .uploadImage(formData.doc, formData.docType, profileImage[0])
+              .catch((error) => console.error(error))
+          })
+          .catch((error) => { setError(true); console.error(error) })
           .finally(() => { setIsLoading(false); });
         break;
       case 'update':
         UsersApi.update(formData)
-          .catch(() => { setError(true); })
+          .then(async () =>
+            UsersApi
+              .uploadImage(formData.doc, formData.docType, profileImage[0])
+              .catch((error) => console.error(error))
+          )
+          .catch((error) => { setError(true); console.error(error) })
           .finally(() => { setIsLoading(false); });
         break;
       case 'delete':
         UsersApi.delete(formData.doc, formData.docType)
-          .catch(() => { setError(true); })
+          .catch((error) => { setError(true); console.error(error) })
           .finally(() => { error ? setIsLoading(false) : navigate("/"); });
         break;
       default:

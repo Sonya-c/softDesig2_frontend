@@ -25,7 +25,7 @@ export const UsersApi = {
     return response.data;
   },
 
-  create: async (user) => {
+  create: async (user, profileImage) => {
     const response = await api.request({
       method: 'POST',
       url: url,
@@ -53,5 +53,24 @@ export const UsersApi = {
     });
 
     console.info("UsersApi.delete", response);
+  },
+
+  uploadImage: async (doc, docType, profileImage) => {
+    if (profileImage === null || profileImage === undefined) return;
+
+    const formData = new FormData();
+    formData.append('profile_image', profileImage);
+
+    const response = await api.request({
+      method: 'PATCH', // patch
+      url: `image?doc=${doc}&docType=${docType}`,
+      data: formData,
+      headers: {
+        'Content-Type': 'multipart/form-data',
+        'accept': 'application/json',
+      },
+    });
+
+    console.log("UsersApi.uploadImage", response);
   }
 }
